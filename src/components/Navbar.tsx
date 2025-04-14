@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
+import { Menu, X, Github, Linkedin, Mail, Code2, Phone } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +31,8 @@ const Navbar = () => {
     { href: "https://github.com/mahmoudnader150", Icon: Github, label: "GitHub" },
     { href: "https://linkedin.com/in/mahmoud-nader-112483228", Icon: Linkedin, label: "LinkedIn" },
     { href: "mailto:mahnader222@gmail.com", Icon: Mail, label: "Email" },
+    { href: "tel:+201127264619", Icon: Phone, label: "Phone" },
+    { href: "https://codeforces.com/profile/_Nader", Icon: Code2, label: "Codeforces" },
   ];
 
   return (
@@ -42,7 +44,7 @@ const Navbar = () => {
       <div className="container-custom py-4">
         <div className="flex items-center justify-between">
           <a href="#top" className="font-bold text-xl md:text-2xl text-primary">
-            Mahmoud<span className="text-accent">Nader</span>
+            MAHMOUD<span className="text-accent">NADER</span>
           </a>
           
           {/* Desktop Navigation */}

@@ -6,24 +6,24 @@ import { Code, Server, Layers, Globe } from "lucide-react";
 const AboutSection = () => {
   const skills = [
     { 
-      category: "Frontend Development", 
-      items: ["JavaScript", "TypeScript", "React.js", "HTML/CSS", "Tailwind CSS"],
+      category: "Programming Languages", 
+      items: ["C/C++", "Java", "Python", "JavaScript", "TypeScript", "Dart", "Kotlin", "PHP"],
       icon: <Code className="h-8 w-8 text-accent" />,
     },
     { 
+      category: "Frontend & Mobile", 
+      items: ["React.js", "HTML/CSS", "Tailwind CSS", "Flutter", "Figma"],
+      icon: <Globe className="h-8 w-8 text-accent" />,
+    },
+    { 
       category: "Backend Development", 
-      items: ["Node.js", "Express", "Python", "Django", "RESTful APIs"],
+      items: ["Node.js", "Python - Django/Flask", "Java Spring Boot", "Firebase", "RESTful APIs"],
       icon: <Server className="h-8 w-8 text-accent" />,
     },
     { 
-      category: "DevOps & Tools", 
-      items: ["Git", "Docker", "CI/CD", "Linux", "Agile Methodologies"],
+      category: "Tools & Databases", 
+      items: ["Git/GitHub", "MongoDB", "PostgreSQL", "SQL", "Postman", "Linux"],
       icon: <Layers className="h-8 w-8 text-accent" />,
-    },
-    { 
-      category: "Other Skills", 
-      items: ["Database Design", "System Architecture", "Test-Driven Development", "UI/UX Principles"],
-      icon: <Globe className="h-8 w-8 text-accent" />,
     },
   ];
 
@@ -36,39 +36,35 @@ const AboutSection = () => {
             <div className="grid md:grid-cols-2 gap-10">
               <div className="space-y-4">
                 <p className="text-muted-foreground">
-                  I'm a passionate software engineer with 5+ years of experience building web applications 
-                  and digital products. I enjoy solving complex problems and turning ideas into reality through 
-                  elegant and efficient code.
+                  I'm a passionate software engineer specializing in building web and mobile applications. 
+                  I enjoy solving complex problems and turning ideas into reality through elegant and efficient code.
                 </p>
                 <p className="text-muted-foreground">
-                  My journey in tech started when I was a teenager, building simple websites and experimenting 
-                  with different programming languages. This curiosity evolved into a professional career 
-                  where I've had the opportunity to work on a diverse range of projects - from e-commerce platforms 
-                  to data-intensive applications.
+                  My journey in tech started with a strong foundation in algorithms and data structures,
+                  which I've applied in competitive programming contests. This experience has honed my
+                  problem-solving abilities and analytical thinking.
                 </p>
                 <p className="text-muted-foreground">
-                  When I'm not coding, you'll find me hiking, reading about new technologies, or contributing to 
-                  open-source projects. I'm always looking to learn and grow, both personally and professionally.
+                  I'm fluent in multiple programming languages and frameworks, allowing me to choose
+                  the right tools for each project. I'm constantly learning and expanding my skill set
+                  to stay current with the latest technologies and best practices.
                 </p>
               </div>
               <div className="border-l pl-10 hidden md:block">
                 <h3 className="text-xl font-semibold mb-4">Education</h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="font-medium">Master of Science in Computer Science</p>
-                    <p className="text-muted-foreground">University Name, 2018-2020</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">Bachelor of Science in Computer Engineering</p>
-                    <p className="text-muted-foreground">University Name, 2014-2018</p>
+                    <p className="font-medium">Bachelor of Science in Computer and Artificial Intelligence</p>
+                    <p className="text-muted-foreground">Cairo University, 2020-2024</p>
+                    <p className="text-muted-foreground">GPA: 3.34/4.00</p>
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-semibold mt-8 mb-4">Certifications</h3>
+                <h3 className="text-xl font-semibold mt-8 mb-4">Languages</h3>
                 <div className="space-y-2">
-                  <p>AWS Certified Developer</p>
-                  <p>Google Cloud Professional Engineer</p>
-                  <p>MongoDB Certified Developer</p>
+                  <p>Arabic: First language</p>
+                  <p>English: Proficient</p>
+                  <p>German: Beginner</p>
                 </div>
               </div>
             </div>

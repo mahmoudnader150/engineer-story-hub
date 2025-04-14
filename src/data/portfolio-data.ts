@@ -1,10 +1,10 @@
 
-import { Briefcase, Code, Code2, Github, Linkedin, Mail } from "lucide-react";
+import { Briefcase, Code, Code2, Github, Linkedin, Mail, Phone } from "lucide-react";
 
 export const projects = [
   { 
     title: "VolunHero", 
-    description: "Social media platform connecting volunteers and those in need, including a roadblock detection and video calls (Graded A+).", 
+    description: "A revolutionary social media mobile application connecting volunteers and those in need, featuring roadblock detection for the visually impaired and seamless video calls.", 
     icon: "Code",
     category: "Graduation Project",
     github: "https://github.com/mahmoudnader150/VolunHero-Frontend.git",
@@ -14,7 +14,7 @@ export const projects = [
   },
   { 
     title: "Chess Game", 
-    description: "A python-based chess game that supports themes and sounds to enhance your gaming experience.", 
+    description: "Chess game for desktop built with Python. It contains all chess rules and enhances gameplay with themes, colors, and sounds.", 
     icon: "Code",
     category: "Game Development",
     github: "https://github.com/mahmoudnader150/Chess-Game.git",
@@ -24,7 +24,7 @@ export const projects = [
   },
   { 
     title: "Connect 4 AI agent", 
-    description: "This project implements an AI for the classic Connect 4 game using the Minimax algorithm with Alpha-Beta Pruning.", 
+    description: "This project implements an AI for the classic Connect 4 game using the Minimax algorithm with Alpha-Beta Pruning to optimize its decision-making process.", 
     icon: "Code",
     category: "Artificial Intelligence",
     github: "https://github.com/mahmoudnader150/AI_Project-Connect-4-.git",
@@ -34,7 +34,7 @@ export const projects = [
   },
   { 
     title: "Music Application", 
-    description: "Implements common logic between all music apps by managing favorite music, managing playlists, playing music with a specified order.", 
+    description: "This app handles the logic of most music apps using bloc provider and cubit like adding and removing music from favorites and creating new playlists.", 
     icon: "Code",
     category: "Mobile Application",
     github: "https://github.com/mahmoudnader150/music_app.git",
@@ -44,7 +44,7 @@ export const projects = [
   },
   { 
     title: "E-commerce", 
-    description: "Shopping app that allows the user to manage his products, add them to cart, remove them, and also view them with a simple chatting system.", 
+    description: "Shopping app that allows users to manage products, add them to cart, remove them, and also view them with a simple chatting system.", 
     icon: "Code",
     category: "Web Application",
     github: "https://github.com/mahmoudnader150/Online-MarketPlace-using-Django.git",
@@ -84,7 +84,7 @@ export const projects = [
   },
   { 
     title: "Notes app", 
-    description: "A mobile application that allows users to manage their notes and give them priority using colors or pin them for easy access, or archive less important notes.", 
+    description: "A mobile application that allows users to manage their notes with priority using colors, pin for easy access, or archive less important notes.", 
     icon: "Code",
     category: "Mobile Application",
     github: "https://github.com/mahmoudnader150/notes_app.git",
@@ -154,7 +154,7 @@ export const projects = [
   },
   { 
     title: "Fawry clone", 
-    description: "API system that manages different payment methods for different services.", 
+    description: "The project includes customer account management, calculating service costs with fees and discounts, making payments, requesting refunds, and admin tasks.", 
     icon: "Code",
     category: "API",
     github: "https://github.com/mahmoudnader150/Project_Advanced_software.git",
@@ -170,7 +170,7 @@ export const experiences = [
     description: "I have built strong problem-solving skills in DSA by solving different problems and participating in ECPC three times", 
     icon: "Briefcase",
     company: "ECPC (Egyptian Collegiate Programming Contest)",
-    period: "2021 - Present",
+    period: "2021 - 2024",
     location: "Egypt",
     description_points: [
       "Participated in ECPC for three consecutive years",
@@ -185,28 +185,29 @@ export const experiences = [
     description: "The program covers frontend design, backend development, database management, and deployment.", 
     icon: "Briefcase",
     company: "Information Technology Institute (ITI)",
-    period: "2023 - Present",
+    period: "07/2023 - 08/2024",
     location: "Egypt",
     description_points: [
-      "Received comprehensive training in full-stack web development",
-      "Developed web applications using modern frameworks and technologies",
-      "Learned database management, API integration, and deployment techniques",
-      "Collaborated on team projects simulating real-world development environments"
+      "Learned about Front-End & Fulfilled many tasks with HTML, CSS and JavaScript",
+      "Learned about Databases & submitted many tasks with PostgreSQL",
+      "Learned about Back-End & submitted many tasks with Django",
+      "Built E-Commerce app using Python - Django, HTML, tailwind CSS"
     ],
-    technologies: ["HTML/CSS", "JavaScript", "React", "Node.js", "MongoDB", "Express"]
+    technologies: ["HTML/CSS", "JavaScript", "Django", "PostgreSQL", "Python", "Tailwind"]
   },
   { 
     title: "Flutter Developer @GDSC", 
     description: "I taught and mentored students in building cross-platform mobile applications using Flutter. I created and delivered engaging workshops and coding sessions.", 
     icon: "Briefcase",
-    company: "Google Developer Student Clubs (GDSC)",
-    period: "2022 - 2023",
+    company: "Google Developer Student Clubs (GDSC) Cairo University",
+    period: "01/2024 - 06/2024",
     location: "Egypt",
     description_points: [
       "Taught Flutter mobile development to university students",
       "Created and delivered hands-on workshops and coding sessions",
       "Mentored students through their mobile app development process",
-      "Helped organize tech events and coding competitions"
+      "Helped students overcome technical challenges",
+      "Engaged with the developer community, inspired and empowered future tech leaders"
     ],
     technologies: ["Flutter", "Dart", "Firebase", "Git", "Mobile Development"]
   }
@@ -214,6 +215,7 @@ export const experiences = [
 
 export const contactInfo = [
   { type: "Email", value: "mahnader222@gmail.com", icon: "Mail", prefix: "mailto:" },
+  { type: "Phone", value: "+201127264619", icon: "Phone", prefix: "tel:" },
   { type: "LinkedIn", value: "https://www.linkedin.com/in/mahmoud-nader-112483228/", icon: "Linkedin", prefix: "" },
   { type: "GitHub", value: "https://github.com/mahmoudnader150", icon: "Github", prefix: "" },
   { type: "Codeforces", value: "https://codeforces.com/profile/_Nader", icon: "Code2", prefix: "" }
@@ -227,6 +229,8 @@ export const getIconComponent = (iconName: string) => {
       return Briefcase;
     case "Mail":
       return Mail;
+    case "Phone":
+      return Phone;
     case "Linkedin":
       return Linkedin;
     case "Github":

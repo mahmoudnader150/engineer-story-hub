@@ -13,14 +13,11 @@ const ContactSection = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // In a real implementation, you would handle form submission here
-    // This is just a placeholder for demonstration
     toast({
       title: "Message sent!",
       description: "Thank you for your message. I'll get back to you soon.",
     });
     
-    // Reset form
     e.currentTarget.reset();
   };
 
@@ -40,7 +37,7 @@ const ContactSection = () => {
             <div className="space-y-8">
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold">Connect With Me</h3>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
                   {contactInfo.map((item, index) => {
                     const IconComponent = getIconComponent(item.icon);
                     return (

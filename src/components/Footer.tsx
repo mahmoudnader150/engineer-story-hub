@@ -10,7 +10,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div>
             <p className="text-foreground/70 text-sm">
-              © {new Date().getFullYear()} Mahmoud Nader. All rights reserved.
+              © {new Date().getFullYear()} MAHMOUD NADER ALI. All rights reserved.
+            </p>
+            <p className="text-foreground/50 text-xs mt-1">
+              Egypt, Giza
             </p>
           </div>
           <div className="mt-4 md:mt-0">

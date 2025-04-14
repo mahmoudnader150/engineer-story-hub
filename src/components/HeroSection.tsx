@@ -10,14 +10,15 @@ const HeroSection = () => {
         <div className="flex flex-col gap-6 max-w-3xl animate-fade-in">
           <p className="text-accent font-medium">Hello, I'm</p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary">
-            Mahmoud Nader
+            MAHMOUD NADER ALI
           </h1>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground/80">
             Software Engineer
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl">
-            I build exceptional digital experiences with clean, efficient code. Specializing in
-            full-stack development with a focus on user-centered design.
+            A software engineer passionate about problem-solving, learning, and building scalable projects. 
+            I specialize in building robust software applications including web and mobile applications and 
+            enjoy tackling complex programming challenges. I create efficient solutions that solve real-world problems.
           </p>
           <div className="flex flex-wrap gap-4 mt-2">
             <Button asChild className="bg-accent hover:bg-accent/90">
