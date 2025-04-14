@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div>
             <p className="text-foreground/70 text-sm">
-              © {new Date().getFullYear()} Your Name. All rights reserved.
+              © {new Date().getFullYear()} Mahmoud Nader. All rights reserved.
             </p>
           </div>
           <div className="mt-4 md:mt-0">

@@ -4,65 +4,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
+import { projects } from "@/data/portfolio-data";
 
 const ProjectsSection = () => {
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution with product management, cart functionality, payment processing, and user authentication.",
-      image: "/placeholder.svg",
-      tags: ["React", "Node.js", "MongoDB", "Stripe API"],
-      liveLink: "https://example.com",
-      repoLink: "https://github.com/yourusername/project",
-      featured: true,
-    },
-    {
-      title: "Task Management App",
-      description: "A productivity app that helps users organize tasks, set priorities, and track progress with a clean, intuitive interface.",
-      image: "/placeholder.svg",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
-      liveLink: "https://example.com",
-      repoLink: "https://github.com/yourusername/project",
-      featured: true,
-    },
-    {
-      title: "Weather Dashboard",
-      description: "A real-time weather application that provides detailed forecasts, historical data, and location-based alerts.",
-      image: "/placeholder.svg",
-      tags: ["JavaScript", "React", "Weather API", "Chart.js"],
-      liveLink: "https://example.com",
-      repoLink: "https://github.com/yourusername/project",
-      featured: false,
-    },
-    {
-      title: "Social Media Analytics Tool",
-      description: "A dashboard that helps businesses track engagement metrics across multiple social media platforms.",
-      image: "/placeholder.svg",
-      tags: ["React", "Redux", "Express", "Social APIs"],
-      liveLink: "https://example.com",
-      repoLink: "https://github.com/yourusername/project",
-      featured: false,
-    },
-    {
-      title: "Portfolio Website",
-      description: "A responsive portfolio website to showcase projects and skills, built with modern web technologies.",
-      image: "/placeholder.svg",
-      tags: ["React", "TypeScript", "Tailwind CSS"],
-      liveLink: "https://example.com",
-      repoLink: "https://github.com/yourusername/project",
-      featured: false,
-    },
-    {
-      title: "Budget Tracker",
-      description: "A financial application that helps users manage expenses, set budgets, and visualize spending patterns.",
-      image: "/placeholder.svg",
-      tags: ["Vue.js", "Firebase", "D3.js"],
-      liveLink: "https://example.com",
-      repoLink: "https://github.com/yourusername/project",
-      featured: false,
-    },
-  ];
-
   const featuredProjects = projects.filter(project => project.featured);
   const otherProjects = projects.filter(project => !project.featured);
 
@@ -93,24 +37,24 @@ const ProjectsSection = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, idx) => (
-                      <Badge key={idx} variant="secondary">{tag}</Badge>
-                    ))}
+                    <Badge variant="secondary">{project.category}</Badge>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
                   <Button asChild variant="outline" size="sm">
-                    <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
                       <Github size={16} />
                       <span>Code</span>
                     </a>
                   </Button>
-                  <Button asChild size="sm">
-                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
-                      <span>Live Demo</span>
-                      <ExternalLink size={16} />
-                    </a>
-                  </Button>
+                  {project.liveLink !== "#" && (
+                    <Button asChild size="sm">
+                      <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+                        <span>Live Demo</span>
+                        <ExternalLink size={16} />
+                      </a>
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             ))}
@@ -129,24 +73,24 @@ const ProjectsSection = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs">{tag}</Badge>
-                    ))}
+                    <Badge variant="secondary" className="text-xs">{project.category}</Badge>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
                   <Button asChild variant="ghost" size="sm">
-                    <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
                       <Github size={14} />
                       <span>Code</span>
                     </a>
                   </Button>
-                  <Button asChild variant="outline" size="sm">
-                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
-                      <span>Demo</span>
-                      <ExternalLink size={14} />
-                    </a>
-                  </Button>
+                  {project.liveLink !== "#" && (
+                    <Button asChild variant="outline" size="sm">
+                      <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+                        <span>Demo</span>
+                        <ExternalLink size={14} />
+                      </a>
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             ))}

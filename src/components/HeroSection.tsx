@@ -10,7 +10,7 @@ const HeroSection = () => {
         <div className="flex flex-col gap-6 max-w-3xl animate-fade-in">
           <p className="text-accent font-medium">Hello, I'm</p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary">
-            Your Name
+            Mahmoud Nader
           </h1>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground/80">
             Software Engineer

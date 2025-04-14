@@ -1,11 +1,10 @@
-
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Linkedin, Github, Twitter } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { contactInfo, getIconComponent } from "@/data/portfolio-data";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -24,45 +23,6 @@ const ContactSection = () => {
     e.currentTarget.reset();
   };
 
-  const contactInfo = [
-    {
-      icon: <Mail className="h-5 w-5 text-accent" />,
-      title: "Email",
-      value: "your.email@example.com",
-      href: "mailto:your.email@example.com",
-    },
-    {
-      icon: <Phone className="h-5 w-5 text-accent" />,
-      title: "Phone",
-      value: "+1 (123) 456-7890",
-      href: "tel:+11234567890",
-    },
-    {
-      icon: <MapPin className="h-5 w-5 text-accent" />,
-      title: "Location",
-      value: "San Francisco, CA",
-      href: null,
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: <Github className="h-6 w-6" />,
-      href: "https://github.com/yourusername",
-      label: "GitHub",
-    },
-    {
-      icon: <Linkedin className="h-6 w-6" />,
-      href: "https://linkedin.com/in/yourusername",
-      label: "LinkedIn",
-    },
-    {
-      icon: <Twitter className="h-6 w-6" />,
-      href: "https://twitter.com/yourusername",
-      label: "Twitter",
-    },
-  ];
-
   return (
     <section id="contact" className="section-padding">
       <div className="container-custom">
@@ -80,42 +40,49 @@ const ContactSection = () => {
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold">Contact Information</h3>
                 <div className="grid gap-4">
-                  {contactInfo.map((item, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      {item.icon}
-                      <div>
-                        <p className="text-sm font-medium">{item.title}</p>
-                        {item.href ? (
+                  {contactInfo.map((item, index) => {
+                    const IconComponent = getIconComponent(item.icon);
+                    return (
+                      <div key={index} className="flex items-center gap-3">
+                        <IconComponent className="h-5 w-5 text-accent" />
+                        <div>
+                          <p className="text-sm font-medium">{item.type}</p>
                           <a 
-                            href={item.href} 
+                            href={`${item.prefix}${item.value}`} 
                             className="text-muted-foreground hover:text-accent transition-colors"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             {item.value}
                           </a>
-                        ) : (
-                          <p className="text-muted-foreground">{item.value}</p>
-                        )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold">Connect With Me</h3>
                 <div className="flex gap-4">
-                  {socialLinks.map((social, index) => (
-                    <a 
-                      key={index}
-                      href={social.href} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="p-3 bg-muted rounded-full hover:bg-accent hover:text-white transition-colors"
-                      aria-label={social.label}
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
+                  {contactInfo.map((social, index) => {
+                    if (social.type !== "Email") {
+                      const IconComponent = getIconComponent(social.icon);
+                      return (
+                        <a 
+                          key={index}
+                          href={social.value} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="p-3 bg-muted rounded-full hover:bg-accent hover:text-white transition-colors"
+                          aria-label={social.type}
+                        >
+                          <IconComponent className="h-6 w-6" />
+                        </a>
+                      );
+                    }
+                    return null;
+                  })}
                 </div>
               </div>
 
