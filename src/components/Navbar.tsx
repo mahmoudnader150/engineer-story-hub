@@ -1,11 +1,13 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Github, Linkedin, Mail, Code2, Phone } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,14 +27,6 @@ const Navbar = () => {
     { href: "#projects", label: "Projects" },
     { href: "#experience", label: "Experience" },
     { href: "#contact", label: "Contact" },
-  ];
-
-  const socialLinks = [
-    { href: "https://github.com/mahmoudnader150", Icon: Github, label: "GitHub" },
-    { href: "https://linkedin.com/in/mahmoud-nader-112483228", Icon: Linkedin, label: "LinkedIn" },
-    { href: "mailto:mahnader222@gmail.com", Icon: Mail, label: "Email" },
-    { href: "tel:+201127264619", Icon: Phone, label: "Phone" },
-    { href: "https://codeforces.com/profile/_Nader", Icon: Code2, label: "Codeforces" },
   ];
 
   return (
@@ -61,32 +55,40 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <div className="flex items-center gap-3">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/70 hover:text-accent transition-colors"
-                  aria-label={link.label}
-                >
-                  <link.Icon size={20} />
-                </a>
-              ))}
-            </div>
+            
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label="Toggle theme"
+              className="rounded-full"
+            >
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            </Button>
           </nav>
           
           {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </Button>
+          <div className="flex items-center gap-2 md:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label="Toggle theme"
+              className="rounded-full"
+            >
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </Button>
+          </div>
         </div>
       </div>
       
@@ -110,20 +112,6 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-4 mt-6 pt-4 border-t">
-            {socialLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground/70 hover:text-accent transition-colors"
-                aria-label={link.label}
-              >
-                <link.Icon size={20} />
-              </a>
-            ))}
-          </div>
         </nav>
       </div>
     </header>

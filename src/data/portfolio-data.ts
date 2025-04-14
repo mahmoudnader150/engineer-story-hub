@@ -1,5 +1,4 @@
-
-import { Briefcase, Code, Code2, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { Briefcase, Code, Code2, Github, Linkedin, Mail } from "lucide-react";
 
 export const projects = [
   { 
@@ -215,7 +214,6 @@ export const experiences = [
 
 export const contactInfo = [
   { type: "Email", value: "mahnader222@gmail.com", icon: "Mail", prefix: "mailto:" },
-  { type: "Phone", value: "+201127264619", icon: "Phone", prefix: "tel:" },
   { type: "LinkedIn", value: "https://www.linkedin.com/in/mahmoud-nader-112483228/", icon: "Linkedin", prefix: "" },
   { type: "GitHub", value: "https://github.com/mahmoudnader150", icon: "Github", prefix: "" },
   { type: "Codeforces", value: "https://codeforces.com/profile/_Nader", icon: "Code2", prefix: "" }
@@ -229,8 +227,6 @@ export const getIconComponent = (iconName: string) => {
       return Briefcase;
     case "Mail":
       return Mail;
-    case "Phone":
-      return Phone;
     case "Linkedin":
       return Linkedin;
     case "Github":
