@@ -17,7 +17,7 @@ const HeroSection = () => {
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl">
             I build exceptional digital experiences with clean, efficient code. Specializing in
-            full-stack development with a focus on user-centered design and scalable solutions.
+            full-stack development with a focus on user-centered design.
           </p>
           <div className="flex flex-wrap gap-4 mt-2">
             <Button asChild className="bg-accent hover:bg-accent/90">

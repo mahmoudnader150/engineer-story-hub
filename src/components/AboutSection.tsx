@@ -7,17 +7,17 @@ const AboutSection = () => {
   const skills = [
     { 
       category: "Frontend Development", 
-      items: ["JavaScript", "TypeScript", "React.js", "Next.js", "HTML/CSS", "Tailwind CSS"],
+      items: ["JavaScript", "TypeScript", "React.js", "HTML/CSS", "Tailwind CSS"],
       icon: <Code className="h-8 w-8 text-accent" />,
     },
     { 
       category: "Backend Development", 
-      items: ["Node.js", "Express", "Python", "Django", "RESTful APIs", "GraphQL"],
+      items: ["Node.js", "Express", "Python", "Django", "RESTful APIs"],
       icon: <Server className="h-8 w-8 text-accent" />,
     },
     { 
       category: "DevOps & Tools", 
-      items: ["Git", "Docker", "CI/CD", "AWS", "Linux", "Agile Methodologies"],
+      items: ["Git", "Docker", "CI/CD", "Linux", "Agile Methodologies"],
       icon: <Layers className="h-8 w-8 text-accent" />,
     },
     { 

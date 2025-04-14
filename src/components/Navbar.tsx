@@ -28,9 +28,9 @@ const Navbar = () => {
   ];
 
   const socialLinks = [
-    { href: "https://github.com/yourusername", Icon: Github, label: "GitHub" },
-    { href: "https://linkedin.com/in/yourusername", Icon: Linkedin, label: "LinkedIn" },
-    { href: "mailto:your.email@example.com", Icon: Mail, label: "Email" },
+    { href: "https://github.com/mahmoudnader150", Icon: Github, label: "GitHub" },
+    { href: "https://linkedin.com/in/mahmoud-nader-112483228", Icon: Linkedin, label: "LinkedIn" },
+    { href: "mailto:mahnader222@gmail.com", Icon: Mail, label: "Email" },
   ];
 
   return (
@@ -42,7 +42,7 @@ const Navbar = () => {
       <div className="container-custom py-4">
         <div className="flex items-center justify-between">
           <a href="#top" className="font-bold text-xl md:text-2xl text-primary">
-            Your<span className="text-accent">Name</span>
+            Mahmoud<span className="text-accent">Nader</span>
           </a>
           
           {/* Desktop Navigation */}

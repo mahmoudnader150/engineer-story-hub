@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -38,50 +39,22 @@ const ContactSection = () => {
           <div className="grid md:grid-cols-2 gap-10">
             <div className="space-y-8">
               <div className="space-y-6">
-                <h3 className="text-xl font-semibold">Contact Information</h3>
-                <div className="grid gap-4">
+                <h3 className="text-xl font-semibold">Connect With Me</h3>
+                <div className="flex gap-4">
                   {contactInfo.map((item, index) => {
                     const IconComponent = getIconComponent(item.icon);
                     return (
-                      <div key={index} className="flex items-center gap-3">
-                        <IconComponent className="h-5 w-5 text-accent" />
-                        <div>
-                          <p className="text-sm font-medium">{item.type}</p>
-                          <a 
-                            href={`${item.prefix}${item.value}`} 
-                            className="text-muted-foreground hover:text-accent transition-colors"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {item.value}
-                          </a>
-                        </div>
-                      </div>
+                      <a 
+                        key={index}
+                        href={`${item.prefix}${item.value}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="p-3 bg-muted rounded-full hover:bg-accent hover:text-white transition-colors"
+                        aria-label={item.type}
+                      >
+                        <IconComponent className="h-6 w-6" />
+                      </a>
                     );
-                  })}
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <h3 className="text-xl font-semibold">Connect With Me</h3>
-                <div className="flex gap-4">
-                  {contactInfo.map((social, index) => {
-                    if (social.type !== "Email") {
-                      const IconComponent = getIconComponent(social.icon);
-                      return (
-                        <a 
-                          key={index}
-                          href={social.value} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="p-3 bg-muted rounded-full hover:bg-accent hover:text-white transition-colors"
-                          aria-label={social.type}
-                        >
-                          <IconComponent className="h-6 w-6" />
-                        </a>
-                      );
-                    }
-                    return null;
                   })}
                 </div>
               </div>
