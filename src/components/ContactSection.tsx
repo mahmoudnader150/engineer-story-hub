@@ -1,7 +1,9 @@
+
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import emailjs from '@emailjs/browser';
 import { contactInfo, getIconComponent } from "@/data/portfolio-data";
@@ -11,10 +13,12 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: ''
+    message: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -33,7 +37,7 @@ const ContactSection = () => {
         'template_tq8b8qp',
         {
           head,
-          feedback: formData.subject,
+          feedback: formData.message,
           to_email: 'mahnader222@gmail.com'
         },
         'SZgeL5iBEktSnu_1q'
@@ -47,7 +51,7 @@ const ContactSection = () => {
       setFormData({
         name: '',
         email: '',
-        subject: ''
+        message: ''
       });
     } catch (error) {
       toast({
@@ -141,15 +145,16 @@ const ContactSection = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="subject" className="text-sm font-medium">
-                        Subject
+                      <label htmlFor="message" className="text-sm font-medium">
+                        Message
                       </label>
-                      <Input 
-                        id="subject" 
-                        placeholder="Subject of your message" 
+                      <Textarea 
+                        id="message" 
+                        placeholder="Write your message here" 
                         required 
-                        value={formData.subject}
+                        value={formData.message}
                         onChange={handleChange}
+                        className="min-h-[120px]"
                       />
                     </div>
                     <Button type="submit" className="w-full bg-accent hover:bg-accent/90">
