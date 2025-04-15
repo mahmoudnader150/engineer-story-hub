@@ -1,9 +1,7 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import emailjs from '@emailjs/browser';
 import { contactInfo, getIconComponent } from "@/data/portfolio-data";
@@ -13,24 +11,10 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
-    message: ''
-  });
-  const [emailJsConfig, setEmailJsConfig] = useState({
-    serviceId: '',
-    templateId: '',
-    publicKey: ''
+    subject: ''
   });
 
-  useEffect(() => {
-    // Load EmailJS config from localStorage on component mount
-    const savedConfig = localStorage.getItem('emailJsConfig');
-    if (savedConfig) {
-      setEmailJsConfig(JSON.parse(savedConfig));
-    }
-  }, []);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -38,41 +22,21 @@ const ContactSection = () => {
     }));
   };
 
-  const handleConfigChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    const updatedConfig = {
-      ...emailJsConfig,
-      [id]: value
-    };
-    setEmailJsConfig(updatedConfig);
-    localStorage.setItem('emailJsConfig', JSON.stringify(updatedConfig));
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Validate EmailJS configuration
-    if (!emailJsConfig.serviceId || !emailJsConfig.templateId || !emailJsConfig.publicKey) {
-      toast({
-        title: "Configuration Missing",
-        description: "Please fill in all EmailJS configuration fields.",
-        variant: "destructive"
-      });
-      return;
-    }
-
     try {
+      const head = `${formData.name} ${formData.email}`;
+      
       await emailjs.send(
-        emailJsConfig.serviceId, 
-        emailJsConfig.templateId,
+        'service_n3ckpnw',
+        'template_tq8b8qp',
         {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
+          head,
+          feedback: formData.subject,
           to_email: 'mahnader222@gmail.com'
         },
-        emailJsConfig.publicKey
+        'SZgeL5iBEktSnu_1q'
       );
 
       toast({
@@ -80,17 +44,15 @@ const ContactSection = () => {
         description: "Thank you for your message. I'll get back to you soon.",
       });
       
-      e.currentTarget.reset();
       setFormData({
         name: '',
         email: '',
-        subject: '',
-        message: ''
+        subject: ''
       });
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to send message. Please check your EmailJS configuration.",
+        description: "Failed to send message. Please try again.",
         variant: "destructive"
       });
       console.error('Email sending error:', error);
@@ -151,43 +113,6 @@ const ContactSection = () => {
             <div>
               <Card>
                 <CardContent className="p-6">
-                  <div className="space-y-4 mb-6">
-                    <h3 className="text-xl font-semibold">EmailJS Configuration</h3>
-                    <div className="space-y-2">
-                      <label htmlFor="serviceId" className="text-sm font-medium">
-                        Service ID
-                      </label>
-                      <Input 
-                        id="serviceId" 
-                        placeholder="Your EmailJS Service ID" 
-                        value={emailJsConfig.serviceId}
-                        onChange={handleConfigChange}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="templateId" className="text-sm font-medium">
-                        Template ID
-                      </label>
-                      <Input 
-                        id="templateId" 
-                        placeholder="Your EmailJS Template ID" 
-                        value={emailJsConfig.templateId}
-                        onChange={handleConfigChange}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="publicKey" className="text-sm font-medium">
-                        Public Key
-                      </label>
-                      <Input 
-                        id="publicKey" 
-                        placeholder="Your EmailJS Public Key" 
-                        value={emailJsConfig.publicKey}
-                        onChange={handleConfigChange}
-                      />
-                    </div>
-                  </div>
-
                   <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
@@ -224,19 +149,6 @@ const ContactSection = () => {
                         placeholder="Subject of your message" 
                         required 
                         value={formData.subject}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="text-sm font-medium">
-                        Message
-                      </label>
-                      <Textarea 
-                        id="message" 
-                        placeholder="Your message" 
-                        rows={5} 
-                        required 
-                        value={formData.message}
                         onChange={handleChange}
                       />
                     </div>
