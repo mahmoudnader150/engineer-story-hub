@@ -1,24 +1,65 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { contactInfo, getIconComponent } from "@/data/portfolio-data";
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const { toast } = useToast();
-  
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. I'll get back to you soon.",
-    });
-    
-    e.currentTarget.reset();
+    try {
+      await emailjs.send(
+        'service_YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'template_YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'mahnader222@gmail.com'
+        },
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      );
+
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. I'll get back to you soon.",
+      });
+      
+      e.currentTarget.reset();
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive"
+      });
+      console.error('Email sending error:', error);
+    }
   };
 
   return (
@@ -85,6 +126,8 @@ const ContactSection = () => {
                         id="name" 
                         placeholder="Your name" 
                         required 
+                        value={formData.name}
+                        onChange={handleChange}
                       />
                     </div>
                     <div className="space-y-2">
@@ -96,6 +139,8 @@ const ContactSection = () => {
                         type="email" 
                         placeholder="Your email" 
                         required 
+                        value={formData.email}
+                        onChange={handleChange}
                       />
                     </div>
                     <div className="space-y-2">
@@ -106,6 +151,8 @@ const ContactSection = () => {
                         id="subject" 
                         placeholder="Subject of your message" 
                         required 
+                        value={formData.subject}
+                        onChange={handleChange}
                       />
                     </div>
                     <div className="space-y-2">
@@ -117,6 +164,8 @@ const ContactSection = () => {
                         placeholder="Your message" 
                         rows={5} 
                         required 
+                        value={formData.message}
+                        onChange={handleChange}
                       />
                     </div>
                     <Button type="submit" className="w-full bg-accent hover:bg-accent/90">
