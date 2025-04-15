@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -36,7 +37,7 @@ const ContactSection = () => {
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          to_email: 'mahnader222@gmail.com'
+          to_email: 'mahnader222@gmail.com' // Updated email address
         },
         'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
       );

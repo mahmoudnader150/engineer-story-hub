@@ -90,29 +90,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      
-      {/* Mobile Menu */}
-      <div 
-        className={`md:hidden absolute w-full bg-background/95 backdrop-blur-sm shadow-md transition-all duration-300 ${
-          isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 invisible"
-        } overflow-hidden`}
-      >
-        <nav className="container-custom py-4">
-          <ul className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a 
-                  href={link.href}
-                  className="block py-2 text-foreground/80 hover:text-accent transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
     </header>
   );
 };
