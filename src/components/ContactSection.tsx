@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,19 @@ const ContactSection = () => {
     subject: '',
     message: ''
   });
+  const [emailJsConfig, setEmailJsConfig] = useState({
+    serviceId: '',
+    templateId: '',
+    publicKey: ''
+  });
+
+  useEffect(() => {
+    // Load EmailJS config from localStorage on component mount
+    const savedConfig = localStorage.getItem('emailJsConfig');
+    if (savedConfig) {
+      setEmailJsConfig(JSON.parse(savedConfig));
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -25,21 +38,41 @@ const ContactSection = () => {
     }));
   };
 
+  const handleConfigChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    const updatedConfig = {
+      ...emailJsConfig,
+      [id]: value
+    };
+    setEmailJsConfig(updatedConfig);
+    localStorage.setItem('emailJsConfig', JSON.stringify(updatedConfig));
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
+    // Validate EmailJS configuration
+    if (!emailJsConfig.serviceId || !emailJsConfig.templateId || !emailJsConfig.publicKey) {
+      toast({
+        title: "Configuration Missing",
+        description: "Please fill in all EmailJS configuration fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     try {
       await emailjs.send(
-        'service_YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'template_YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        emailJsConfig.serviceId, 
+        emailJsConfig.templateId,
         {
           from_name: formData.name,
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          to_email: 'mahnader222@gmail.com' // Updated email address
+          to_email: 'mahnader222@gmail.com'
         },
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+        emailJsConfig.publicKey
       );
 
       toast({
@@ -57,7 +90,7 @@ const ContactSection = () => {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: "Failed to send message. Please check your EmailJS configuration.",
         variant: "destructive"
       });
       console.error('Email sending error:', error);
@@ -118,6 +151,43 @@ const ContactSection = () => {
             <div>
               <Card>
                 <CardContent className="p-6">
+                  <div className="space-y-4 mb-6">
+                    <h3 className="text-xl font-semibold">EmailJS Configuration</h3>
+                    <div className="space-y-2">
+                      <label htmlFor="serviceId" className="text-sm font-medium">
+                        Service ID
+                      </label>
+                      <Input 
+                        id="serviceId" 
+                        placeholder="Your EmailJS Service ID" 
+                        value={emailJsConfig.serviceId}
+                        onChange={handleConfigChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="templateId" className="text-sm font-medium">
+                        Template ID
+                      </label>
+                      <Input 
+                        id="templateId" 
+                        placeholder="Your EmailJS Template ID" 
+                        value={emailJsConfig.templateId}
+                        onChange={handleConfigChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="publicKey" className="text-sm font-medium">
+                        Public Key
+                      </label>
+                      <Input 
+                        id="publicKey" 
+                        placeholder="Your EmailJS Public Key" 
+                        value={emailJsConfig.publicKey}
+                        onChange={handleConfigChange}
+                      />
+                    </div>
+                  </div>
+
                   <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
