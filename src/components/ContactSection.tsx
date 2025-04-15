@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import emailjs from '@emailjs/browser';
+import { contactInfo, getIconComponent } from "@/data/portfolio-data";
 
 const ContactSection = () => {
   const { toast } = useToast();
