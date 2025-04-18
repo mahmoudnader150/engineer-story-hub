@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -106,7 +105,7 @@ const ContactSection = () => {
                     If you need a developer who can deliver quality work on time, let's talk.
                   </p>
                   <Button asChild className="mt-4 w-full bg-accent hover:bg-accent/90">
-                    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                    <a href="https://drive.google.com/file/d/1Q1S7iQ05Mw2UocZxHSVbuLeIS27F9xCm/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                       Download Resume
                     </a>
                   </Button>
