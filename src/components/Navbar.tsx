@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavbarLink from "./NavbarLinks";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,12 +25,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Modified the navigation links to include both hash links and page links
-  const navLinks = [
-    { href: "/#about", label: "About" },
-    { href: "/#projects", label: "Projects" },
-    { href: "/#experience", label: "Experience" },
-    { href: "/#contact", label: "Contact" },
+  // Section links (hash links)
+  const sectionLinks = [
+    { href: "#about", label: "About" },
+    { href: "#projects", label: "Projects" },
+    { href: "#experience", label: "Experience" },
+    { href: "#contact", label: "Contact" },
+  ];
+
+  // Page links
+  const pageLinks = [
     { href: "/projects", label: "All Projects" }
   ];
 
@@ -48,18 +53,22 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <ul className="flex gap-6">
-              {navLinks.map((link) => (
+              {/* Section links - only show on home page */}
+              {sectionLinks.map((link) => (
                 <li key={link.href}>
-                  {link.href.startsWith("/#") ? (
-                    <a 
-                      href={link.href}
-                      className="text-foreground/80 hover:text-accent transition-colors px-3 py-2"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <NavbarLink href={link.href} label={link.label} />
-                  )}
+                  <Link
+                    to={location.pathname === "/" ? link.href : `/${link.href}`}
+                    className="text-foreground/80 hover:text-accent transition-colors px-3 py-2"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              
+              {/* Page links */}
+              {pageLinks.map((link) => (
+                <li key={link.href}>
+                  <NavbarLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>
@@ -105,18 +114,22 @@ const Navbar = () => {
         <div className="md:hidden bg-background border-b border-border">
           <div className="container-custom py-4">
             <ul className="flex flex-col gap-2">
-              {navLinks.map((link) => (
+              {/* Section links */}
+              {sectionLinks.map((link) => (
                 <li key={link.href} onClick={() => setIsOpen(false)}>
-                  {link.href.startsWith("/#") ? (
-                    <a 
-                      href={link.href}
-                      className="text-foreground/80 hover:text-accent transition-colors px-3 py-2 block"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <NavbarLink href={link.href} label={link.label} onClick={() => setIsOpen(false)} />
-                  )}
+                  <Link
+                    to={location.pathname === "/" ? link.href : `/${link.href}`}
+                    className="text-foreground/80 hover:text-accent transition-colors px-3 py-2 block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              
+              {/* Page links */}
+              {pageLinks.map((link) => (
+                <li key={link.href} onClick={() => setIsOpen(false)}>
+                  <NavbarLink href={link.href} label={link.label} onClick={() => setIsOpen(false)} />
                 </li>
               ))}
             </ul>
