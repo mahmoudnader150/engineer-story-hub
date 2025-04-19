@@ -56,10 +56,8 @@ const Navbar = () => {
     { href: "#contact", label: "Contact" },
   ];
 
-  // Page links
-  const pageLinks = [
-    { href: "/projects", label: "All Projects" }
-  ];
+  // Page links (removed "All Projects")
+  const pageLinks: any[] = [];
 
   return (
     <header 
@@ -69,9 +67,12 @@ const Navbar = () => {
     >
       <div className="container-custom py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="font-bold text-xl md:text-2xl text-primary">
+          <a 
+            href="https://mahmoudnader150.github.io/engineer-story-hub/" 
+            className="font-bold text-xl md:text-2xl text-primary"
+          >
             MAHMOUD<span className="text-accent">NADER</span>
-          </Link>
+          </a>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
@@ -149,7 +150,7 @@ const Navbar = () => {
                 </li>
               ))}
               
-              {/* Page links */}
+              {/* Page links (now empty) */}
               {pageLinks.map((link) => (
                 <li key={link.href}>
                   <NavbarLink href={link.href} label={link.label} onClick={() => setIsOpen(false)} />
