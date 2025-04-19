@@ -4,6 +4,13 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
 const HeroSection = () => {
+  const handleScroll = (hash: string) => {
+    const element = document.querySelector(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="top" className="min-h-screen flex items-center pt-16 pb-0">
       <div className="container-custom">
@@ -21,18 +28,27 @@ const HeroSection = () => {
             enjoy tackling complex programming challenges. I create efficient solutions that solve real-world problems.
           </p>
           <div className="flex flex-wrap gap-4 mt-2">
-            <Button asChild className="bg-accent hover:bg-accent/90">
-              <a href="#projects">View My Work</a>
+            <Button 
+              className="bg-accent hover:bg-accent/90"
+              onClick={() => handleScroll("#projects")}
+            >
+              View My Work
             </Button>
-            <Button asChild variant="outline">
-              <a href="#contact">Contact Me</a>
+            <Button 
+              variant="outline"
+              onClick={() => handleScroll("#contact")}
+            >
+              Contact Me
             </Button>
           </div>
         </div>
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden md:block animate-bounce">
-          <a href="#about" aria-label="Scroll to About section">
+          <button 
+            onClick={() => handleScroll("#about")} 
+            aria-label="Scroll to About section"
+          >
             <ChevronDown size={28} className="text-accent" />
-          </a>
+          </button>
         </div>
       </div>
     </section>

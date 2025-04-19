@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import NavbarLink from "./NavbarLinks";
 
 const Navbar = () => {
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +25,25 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavigation = (hash: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      // Wait for navigation to complete before scrolling
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    } else {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    setIsOpen(false);
+  };
 
   // Section links (hash links)
   const sectionLinks = [
@@ -53,15 +73,15 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <ul className="flex gap-6">
-              {/* Section links - only show on home page */}
+              {/* Section links */}
               {sectionLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    to={location.pathname === "/" ? link.href : `/${link.href}`}
+                  <button
+                    onClick={() => handleNavigation(link.href)}
                     className="text-foreground/80 hover:text-accent transition-colors px-3 py-2"
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
               
@@ -116,19 +136,19 @@ const Navbar = () => {
             <ul className="flex flex-col gap-2">
               {/* Section links */}
               {sectionLinks.map((link) => (
-                <li key={link.href} onClick={() => setIsOpen(false)}>
-                  <Link
-                    to={location.pathname === "/" ? link.href : `/${link.href}`}
-                    className="text-foreground/80 hover:text-accent transition-colors px-3 py-2 block"
+                <li key={link.href}>
+                  <button
+                    onClick={() => handleNavigation(link.href)}
+                    className="text-foreground/80 hover:text-accent transition-colors px-3 py-2 block w-full text-left"
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
               
               {/* Page links */}
               {pageLinks.map((link) => (
-                <li key={link.href} onClick={() => setIsOpen(false)}>
+                <li key={link.href}>
                   <NavbarLink href={link.href} label={link.label} onClick={() => setIsOpen(false)} />
                 </li>
               ))}
