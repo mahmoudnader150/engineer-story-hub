@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
 const HeroSection = () => {
-  const handleScroll = (hash: string) => {
-    const element = document.querySelector(hash);
+  const handleScroll = (sectionId: string) => {
+    const element = document.querySelector(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }

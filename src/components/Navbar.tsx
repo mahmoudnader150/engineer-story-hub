@@ -26,23 +26,26 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavigation = (hash: string) => {
-    if (location.pathname !== "/") {
+  const handleNavigation = (sectionId: string) => {
+    setIsOpen(false);
+    
+    // Check if we're already on the home page
+    if (location.pathname === "/" || location.pathname === "/engineer-story-hub/") {
+      // We're on home page, just scroll to the section
+      const element = document.querySelector(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // We're on another page, navigate to home and then scroll
       navigate("/");
-      // Wait for navigation to complete before scrolling
       setTimeout(() => {
-        const element = document.querySelector(hash);
+        const element = document.querySelector(sectionId);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
       }, 100);
-    } else {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
     }
-    setIsOpen(false);
   };
 
   // Section links (hash links)

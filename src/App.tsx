@@ -21,6 +21,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/projects" element={<Projects />} />
+            {/* Redirect these routes to the main page with the correct section */}
             <Route path="/about" element={<Index />} />
             <Route path="/experience" element={<Index />} />
             <Route path="/contact" element={<Index />} />
