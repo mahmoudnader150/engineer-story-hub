@@ -30,7 +30,7 @@ const Navbar = () => {
     setIsOpen(false);
     
     // Check if we're already on the home page
-    if (location.pathname === "/" || location.pathname === "/engineer-story-hub/") {
+    if (location.pathname === "/") {
       // We're on home page, just scroll to the section
       const element = document.querySelector(sectionId);
       if (element) {
@@ -56,7 +56,7 @@ const Navbar = () => {
     { href: "#contact", label: "Contact" },
   ];
 
-  // Page links (removed "All Projects")
+  // Page links (no All Projects now)
   const pageLinks: any[] = [];
 
   return (
@@ -67,12 +67,12 @@ const Navbar = () => {
     >
       <div className="container-custom py-4">
         <div className="flex items-center justify-between">
-          <a 
-            href="https://mahmoudnader150.github.io/engineer-story-hub/" 
+          <Link 
+            to="/" 
             className="font-bold text-xl md:text-2xl text-primary"
           >
             MAHMOUD<span className="text-accent">NADER</span>
-          </a>
+          </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">

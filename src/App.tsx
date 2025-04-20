@@ -12,6 +12,9 @@ import CustomCursor from "./components/CustomCursor";
 
 const queryClient = new QueryClient();
 
+// Get the base URL for GitHub Pages or default to "/"
+const baseUrl = "/engineer-story-hub/";
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
