@@ -6,3 +6,8 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[dev]
+  command = "npm run dev"
+  targetPort = 8080
+  framework = "#custom"
