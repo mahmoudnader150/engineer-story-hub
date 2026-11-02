@@ -33,20 +33,22 @@ const ExperienceSection = () => {
                     </span>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <ul className="space-y-2 text-muted-foreground ml-6 list-disc">
-                      {exp.description_points.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
-                    </ul>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {exp.technologies.map((tech, idx) => (
-                        <Badge key={idx} variant="outline">{tech}</Badge>
-                      ))}
+                {(exp.description_points.length > 0 || exp.technologies.length > 0) && (
+                  <CardContent>
+                    <div className="space-y-4">
+                      <ul className="space-y-2 text-muted-foreground ml-6 list-disc">
+                        {exp.description_points.map((item, idx) => (
+                          <li key={idx}>{item}</li>
+                        ))}
+                      </ul>
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {exp.technologies.map((tech, idx) => (
+                          <Badge key={idx} variant="outline">{tech}</Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
+                  </CardContent>
+                )}
               </Card>
             ))}
           </div>

@@ -165,6 +165,16 @@ export const projects = [
 
 export const experiences = [
   { 
+    title: "Software Engineer (Fullstack Developer) @IBM", 
+    description: "Software engineer working as a fullstack developer at IBM.", 
+    icon: "Briefcase",
+    company: "IBM",
+    period: "11/2025 - Present",
+    location: "Egypt",
+    description_points: [] as string[],
+    technologies: [] as string[]
+  },
+  { 
     title: "Competitive Programmer @ECPC", 
     description: "I have built strong problem-solving skills in DSA by solving different problems and participating in ECPC three times", 
     icon: "Briefcase",
