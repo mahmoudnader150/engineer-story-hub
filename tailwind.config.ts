@@ -19,7 +19,16 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+				display: ['Bangers', 'Impact', 'sans-serif'],
+				comic: ['"Comic Neue"', '"Comic Sans MS"', 'cursive']
+			},
 			colors: {
+				ink: 'hsl(var(--ink))',
+				'spider-red': 'hsl(var(--spider-red))',
+				'spider-blue': 'hsl(var(--spider-blue))',
+				'pow-yellow': 'hsl(var(--pow-yellow))',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

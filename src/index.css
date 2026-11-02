@@ -4,35 +4,48 @@
 
 @layer base {
   :root {
-    --background: 220 33% 98%;
-    --foreground: 222 47% 11%;
+    /* Comic print palette: the same in both themes */
+    --ink: 232 45% 7%;
+    --spider-red: 355 84% 45%;
+    --spider-red-deep: 355 84% 38%;
+    --spider-blue: 221 80% 32%;
+    --pow-yellow: 48 100% 62%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    /* Theme-dependent comic tokens */
+    --panel-shadow: var(--ink);
+    --title: var(--spider-red);
+    --web-line: 232 45% 7% / 0.3;
+    --dot: 221 60% 40% / 0.12;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --background: 44 65% 93%;
+    --foreground: 232 45% 7%;
 
-    --primary: 222 47% 11%;
-    --primary-foreground: 210 40% 98%;
+    --card: 45 80% 98%;
+    --card-foreground: 232 45% 7%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --popover: 45 80% 98%;
+    --popover-foreground: 232 45% 7%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --primary: 355 84% 45%;
+    --primary-foreground: 0 0% 100%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 210 40% 98%;
+    --secondary: 221 80% 32%;
+    --secondary-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --muted: 44 45% 85%;
+    --muted-foreground: 232 22% 26%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 222 47% 11%;
+    --accent: 221 80% 36%;
+    --accent-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    --destructive: 355 84% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 232 45% 7%;
+    --input: 232 45% 7%;
+    --ring: 221 80% 36%;
+
+    --radius: 0rem;
 
     --sidebar-background: 220 33% 98%;
     --sidebar-foreground: 240 5% 26%;
@@ -45,33 +58,38 @@
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --panel-shadow: var(--spider-red);
+    --title: var(--pow-yellow);
+    --web-line: 0 0% 100% / 0.28;
+    --dot: 221 70% 60% / 0.16;
 
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
+    --background: 229 55% 9%;
+    --foreground: 44 65% 94%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
+    --card: 226 48% 17%;
+    --card-foreground: 44 65% 94%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 47% 11%;
+    --popover: 226 48% 17%;
+    --popover-foreground: 44 65% 94%;
 
-    --secondary: 217 33% 18%;
-    --secondary-foreground: 210 40% 98%;
+    --primary: 355 84% 45%;
+    --primary-foreground: 0 0% 100%;
 
-    --muted: 217 33% 18%;
-    --muted-foreground: 215 20% 65%;
+    --secondary: 221 80% 32%;
+    --secondary-foreground: 0 0% 100%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 226 40% 24%;
+    --muted-foreground: 44 25% 82%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 48 100% 62%;
+    --accent-foreground: 232 45% 7%;
 
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
-    --ring: 213 27% 84%;
+    --destructive: 355 84% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 232 45% 7%;
+    --input: 232 45% 7%;
+    --ring: 48 100% 62%;
   }
 }
 
@@ -79,13 +97,33 @@
   * {
     @apply border-border;
   }
-  
+
   body {
-    @apply bg-background text-foreground cursor-none;
+    @apply bg-background text-foreground text-[1.0625rem];
+    overflow-x: clip;
   }
 
   html {
     scroll-behavior: smooth;
+    /* Keeps section headings clear of the fixed navbar */
+    scroll-padding-top: 4.5rem;
+  }
+
+  h1, h2, h3 {
+    @apply font-display font-normal;
+    letter-spacing: 0.03em;
+  }
+
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* The web reticle replaces the pointer only where there is a real mouse. */
+  @media (hover: hover) and (pointer: fine) {
+    html, html * {
+      cursor: none !important;
+    }
   }
 }
 
@@ -93,12 +131,468 @@
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
+
   .section-padding {
     @apply py-16 md:py-24;
   }
-  
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+/*
+ * The comic kit. Deliberately outside any @layer: these need to beat the Tailwind
+ * utilities baked into the shadcn Card, Button, Badge and Input components.
+ * Tailwind emits hover: variants after this file, so hover rules below repeat a
+ * class to outrank them.
+ */
+
+/* ---------- Printed backgrounds ---------- */
+
+.comic-section {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  border-top: 6px solid hsl(var(--ink));
+}
+
+.comic-bg-paper {
+  background-color: hsl(var(--background));
+  background-image: radial-gradient(hsl(var(--dot)) 28%, transparent 30%);
+  background-size: 11px 11px;
+}
+
+.comic-bg-blue {
+  background-color: hsl(var(--spider-blue));
+  background-image: radial-gradient(hsl(232 60% 18% / 0.75) 26%, transparent 28%);
+  background-size: 12px 12px;
+}
+
+/* Sunburst red, overprinted with a halftone */
+.comic-bg-cover {
+  background-color: hsl(var(--spider-red));
+  background-image:
+    radial-gradient(hsl(var(--ink) / 0.26) 24%, transparent 26%),
+    repeating-conic-gradient(
+      from 0deg at 72% 45%,
+      hsl(var(--spider-red)) 0deg 10deg,
+      hsl(var(--spider-red-deep)) 10deg 20deg
+    );
+  background-size: 12px 12px, 100% 100%;
+}
+
+.comic-web-line {
+  color: hsl(var(--web-line));
+}
+
+/* ---------- Lettering ---------- */
+
+.comic-cover-title {
+  font-family: theme("fontFamily.display");
+  font-size: clamp(4rem, 15vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: hsl(var(--pow-yellow));
+  -webkit-text-stroke: clamp(6px, 1.2vw, 12px) hsl(var(--ink));
+  paint-order: stroke fill;
+  text-shadow: clamp(4px, 0.8vw, 8px) clamp(4px, 0.8vw, 8px) 0 hsl(var(--ink));
+  transform: rotate(-2deg);
+  transform-origin: left center;
+}
+
+.comic-cover-subtitle {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1;
+  color: #fff;
+  -webkit-text-stroke: 5px hsl(var(--ink));
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 hsl(var(--ink));
+}
+
+.comic-title {
+  line-height: 1;
+  color: hsl(var(--title));
+  text-shadow: 3px 3px 0 hsl(var(--ink));
+}
+
+.comic-title-light {
+  color: hsl(var(--pow-yellow));
+  -webkit-text-stroke: 5px hsl(var(--ink));
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 hsl(var(--ink));
+}
+
+.comic-panel-title {
+  font-family: theme("fontFamily.display");
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  color: hsl(var(--title));
+}
+
+/* The narrator's yellow box */
+.comic-caption {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.3rem 0.75rem;
+  font-family: theme("fontFamily.comic");
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: hsl(var(--ink));
+  background: hsl(var(--pow-yellow));
+  border: 3px solid hsl(var(--ink));
+  box-shadow: 3px 3px 0 hsl(var(--ink));
+}
+
+/* Long copy sits on a solid panel so it stays readable over any print */
+.comic-narration {
+  padding: 0.9rem 1.15rem;
+  color: hsl(var(--card-foreground));
+  background: hsl(var(--card));
+  border: 3px solid hsl(var(--ink));
+  box-shadow: 4px 4px 0 hsl(var(--ink));
+}
+
+.comic-label {
+  font-family: theme("fontFamily.comic");
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* ---------- Panels ---------- */
+
+.comic-panel {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 4px solid hsl(var(--ink));
+  border-radius: 0;
+  box-shadow: 8px 8px 0 hsl(var(--panel-shadow));
+  transition: translate 160ms ease-out, rotate 160ms ease-out, box-shadow 160ms ease-out;
+}
+
+/* Hand-laid panels, never quite square. Individual transform properties so the
+   tilt, the hover lift and the scroll-in pop can't overwrite one another. */
+.comic-grid > .comic-panel:nth-child(odd),
+.tilt-l {
+  rotate: -0.35deg;
+}
+
+.comic-grid > .comic-panel:nth-child(even),
+.tilt-r {
+  rotate: 0.4deg;
+}
+
+/* The same angle moves a wide panel's far edge much further, and softens its text. */
+.comic-grid > .comic-panel.comic-panel-wide {
+  rotate: 0.12deg;
+}
+
+.comic-panel:hover,
+.comic-grid > .comic-panel:hover,
+.comic-grid > .comic-panel.comic-panel-wide:hover {
+  rotate: 0deg;
+  translate: -3px -3px;
+  box-shadow: 12px 12px 0 hsl(var(--panel-shadow));
+}
+
+.comic-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 4.5rem 0.5rem 1.5rem;
+  color: #fff;
+  border-bottom: 4px solid hsl(var(--ink));
+  background-size: 9px 9px;
+}
+
+.comic-band-red {
+  background-color: hsl(var(--spider-red));
+  background-image: radial-gradient(hsl(var(--ink) / 0.28) 26%, transparent 28%);
+}
+
+.comic-band-blue {
+  background-color: hsl(var(--spider-blue));
+  background-image: radial-gradient(hsl(var(--ink) / 0.4) 26%, transparent 28%);
+}
+
+/* Word balloon */
+.comic-speech {
+  position: relative;
+  padding: 1.5rem 1.75rem;
+  color: hsl(var(--card-foreground));
+  background: hsl(var(--card));
+  border: 4px solid hsl(var(--ink));
+  border-radius: 2rem;
+  box-shadow: 6px 6px 0 hsl(var(--ink));
+}
+
+.comic-speech::after {
+  content: "";
+  position: absolute;
+  left: 3rem;
+  top: -2.1rem;
+  width: 2.5rem;
+  height: 2.1rem;
+  background: hsl(var(--ink));
+  clip-path: polygon(0 100%, 100% 100%, 12% 0);
+}
+
+.comic-speech::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: calc(3rem + 6px);
+  top: -1.45rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  background: hsl(var(--card));
+  clip-path: polygon(0 100%, 100% 100%, 8% 0);
+}
+
+/* ---------- Controls ---------- */
+
+.comic-btn {
+  font-family: theme("fontFamily.display");
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  border: 3px solid hsl(var(--ink));
+  border-radius: 0;
+  box-shadow: 4px 4px 0 hsl(var(--ink));
+  transition: translate 120ms ease-out, box-shadow 120ms ease-out, background-color 120ms ease-out;
+}
+
+.comic-btn:hover {
+  translate: -2px -2px;
+  box-shadow: 6px 6px 0 hsl(var(--ink));
+}
+
+.comic-btn:active {
+  translate: 3px 3px;
+  box-shadow: 1px 1px 0 hsl(var(--ink));
+}
+
+.comic-btn-red,
+.comic-btn-red.comic-btn-red:hover {
+  color: #fff;
+  background-color: hsl(var(--spider-red));
+}
+
+.comic-btn-yellow,
+.comic-btn-yellow.comic-btn-yellow:hover {
+  color: hsl(var(--ink));
+  background-color: hsl(var(--pow-yellow));
+}
+
+.comic-btn-paper,
+.comic-btn-paper.comic-btn-paper:hover {
+  color: hsl(var(--ink));
+  background-color: hsl(45 80% 98%);
+}
+
+.comic-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: hsl(var(--ink));
+  background: hsl(var(--pow-yellow));
+  border: 3px solid hsl(var(--ink));
+  border-radius: 9999px;
+  box-shadow: 3px 3px 0 hsl(var(--ink));
+  transition: translate 120ms ease-out, box-shadow 120ms ease-out, background-color 120ms ease-out;
+}
+
+.comic-icon-btn.comic-icon-btn:hover {
+  color: hsl(var(--ink));
+  background: #fff;
+  translate: -1px -2px;
+  box-shadow: 5px 5px 0 hsl(var(--ink));
+}
+
+.comic-icon-chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  padding: 0.35rem;
+  color: #fff;
+  background: hsl(var(--spider-blue));
+  border: 3px solid hsl(var(--ink));
+}
+
+.comic-tag {
+  display: inline-block;
+  padding: 0.1rem 0.55rem;
+  font-family: theme("fontFamily.comic");
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: hsl(var(--ink));
+  background: hsl(var(--pow-yellow));
+  border: 2px solid hsl(var(--ink));
+  border-radius: 0;
+}
+
+.comic-tag.comic-tag:hover {
+  background: hsl(var(--pow-yellow));
+}
+
+.comic-input {
+  font-size: 1rem;
+  background: hsl(var(--background));
+  border: 3px solid hsl(var(--ink));
+  border-radius: 0;
+}
+
+.comic-input::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+/* ---------- Navbar and footer ---------- */
+
+.comic-navbar {
+  color: #fff;
+  background: hsl(var(--ink));
+  border-bottom: 5px solid hsl(var(--spider-red));
+}
+
+.comic-navbar.is-scrolled {
+  box-shadow: 0 5px 0 hsl(var(--ink) / 0.35);
+}
+
+.comic-logo {
+  font-family: theme("fontFamily.display");
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.comic-logo span {
+  color: hsl(var(--pow-yellow));
+}
+
+.comic-nav-link {
+  padding: 0.25rem 0.75rem;
+  font-family: theme("fontFamily.display");
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  transition: rotate 120ms ease-out, background-color 120ms ease-out, color 120ms ease-out;
+}
+
+.comic-nav-link:hover {
+  color: hsl(var(--ink));
+  background: hsl(var(--pow-yellow));
+  rotate: -3deg;
+}
+
+.comic-footer {
+  color: #fff;
+  background: hsl(var(--ink));
+  border-top: 6px solid hsl(var(--spider-red));
+}
+
+/* ---------- Sound effects and motion ---------- */
+
+.comic-sfx {
+  z-index: 2;
+  opacity: 0;
+  scale: 0.3;
+  rotate: -18deg;
+  transition: opacity 90ms ease-out, scale 160ms cubic-bezier(0.34, 1.8, 0.64, 1), rotate 160ms ease-out;
+}
+
+.group:hover > .comic-sfx {
+  opacity: 1;
+  scale: 1;
+  rotate: 8deg;
+}
+
+.comic-cursor {
+  will-change: transform;
+}
+
+.comic-cursor-web {
+  color: hsl(var(--ink));
+  filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);
+  transition: scale 120ms ease-out;
+}
+
+.comic-cursor-web path {
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.comic-cursor-web circle {
+  fill: hsl(var(--spider-red));
+}
+
+.comic-cursor.is-active .comic-cursor-web {
+  color: hsl(var(--spider-red));
+  scale: 1.35;
+}
+
+.comic-web-shot {
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  filter: drop-shadow(0 0 1px hsl(var(--ink))) drop-shadow(0 0 1px hsl(var(--ink)));
+  animation: comic-shot 650ms ease-out both;
+}
+
+.comic-shot-burst {
+  animation: comic-shot-pop 650ms ease-out both;
+}
+
+@keyframes comic-shot {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  30% { stroke-dashoffset: 0; opacity: 1; }
+  70% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes comic-shot-pop {
+  0%, 20% { opacity: 0; scale: 0.2; rotate: -14deg; }
+  38% { opacity: 1; scale: 1.15; rotate: 4deg; }
+  50%, 75% { opacity: 1; scale: 1; rotate: 0deg; }
+  100% { opacity: 0; scale: 1; rotate: 0deg; }
+}
+
+@keyframes comic-wobble {
+  0%, 100% { rotate: -6deg; scale: 1; }
+  50% { rotate: 5deg; scale: 1.07; }
+}
+
+@keyframes comic-pop {
+  from { opacity: 0; scale: 0.92; }
+  to { opacity: 1; scale: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .comic-wobble {
+    animation: comic-wobble 2.6s ease-in-out infinite;
+  }
+
+  /* Panels pop in as they scroll into view. Browsers without scroll timelines just show them. */
+  @supports (animation-timeline: view()) {
+    .comic-panel {
+      animation: comic-pop linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 30%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .comic-panel,
+  .comic-btn,
+  .comic-icon-btn,
+  .comic-nav-link,
+  .comic-sfx {
+    transition: none;
   }
 }

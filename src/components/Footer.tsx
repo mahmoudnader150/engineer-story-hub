@@ -5,28 +5,26 @@ import { ArrowUp } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary py-8">
+    <footer className="comic-footer py-8">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div>
-            <p className="text-foreground/70 text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-center md:text-left">
+            <p className="font-display text-3xl tracking-wider text-pow-yellow">To be continued…</p>
+            <p className="text-sm text-white/80 mt-1">
               © {new Date().getFullYear()} MAHMOUD NADER ALI. All rights reserved.
             </p>
-            <p className="text-foreground/50 text-xs mt-1">
+            <p className="text-xs text-white/70 mt-1">
               Egypt, Giza
             </p>
           </div>
-          <div className="mt-4 md:mt-0">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="rounded-full"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              aria-label="Scroll to top"
-            >
-              <ArrowUp size={20} />
-            </Button>
-          </div>
+          <Button
+            size="icon"
+            className="comic-icon-btn"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Scroll to top"
+          >
+            <ArrowUp size={20} />
+          </Button>
         </div>
       </div>
     </footer>

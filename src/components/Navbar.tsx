@@ -9,7 +9,7 @@ import NavbarLink from "./NavbarLinks";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -61,28 +61,28 @@ const Navbar = () => {
 
   return (
     <header 
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
+      className={`comic-navbar fixed w-full z-50 transition-all duration-300 ${
+        scrolled ? "is-scrolled" : ""
       }`}
     >
-      <div className="container-custom py-4">
+      <div className="container-custom py-2">
         <div className="flex items-center justify-between">
           <Link 
             to="/" 
-            className="font-bold text-xl md:text-2xl text-primary"
+            className="comic-logo"
           >
-            MAHMOUD<span className="text-accent">NADER</span>
+            MAHMOUD<span>NADER</span>
           </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <ul className="flex gap-6">
+            <ul className="flex gap-3">
               {/* Section links */}
               {sectionLinks.map((link) => (
                 <li key={link.href}>
                   <button
                     onClick={() => handleNavigation(link.href)}
-                    className="text-foreground/80 hover:text-accent transition-colors px-3 py-2"
+                    className="comic-nav-link"
                   >
                     {link.label}
                   </button>
@@ -99,33 +99,31 @@ const Navbar = () => {
             
             {/* Theme Toggle */}
             <Button
-              variant="ghost"
               size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="rounded-full"
+              className="comic-icon-btn"
             >
-              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+              {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </Button>
           </nav>
           
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 md:hidden">
             <Button
-              variant="ghost"
               size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="rounded-full"
+              className="comic-icon-btn"
             >
-              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+              {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </Button>
             
             <Button
-              variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
+              className="comic-icon-btn"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
@@ -135,7 +133,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-background border-b border-border">
+        <div className="md:hidden border-t-2 border-white/30">
           <div className="container-custom py-4">
             <ul className="flex flex-col gap-2">
               {/* Section links */}
@@ -143,7 +141,7 @@ const Navbar = () => {
                 <li key={link.href}>
                   <button
                     onClick={() => handleNavigation(link.href)}
-                    className="text-foreground/80 hover:text-accent transition-colors px-3 py-2 block w-full text-left"
+                    className="comic-nav-link block w-full text-left"
                   >
                     {link.label}
                   </button>

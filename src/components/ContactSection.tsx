@@ -6,6 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import emailjs from '@emailjs/browser';
 import { contactInfo, getIconComponent } from "@/data/portfolio-data";
+import SectionHeading from "@/components/comic/SectionHeading";
+import { WebCorner, WebDivider } from "@/components/comic/ComicArt";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -63,21 +65,23 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="section-padding">
+    <section id="contact" className="comic-section comic-bg-cover section-padding">
+      <WebDivider className="text-white/70" />
+      <WebCorner className="absolute bottom-0 right-0 -z-10 w-48 rotate-180 text-white/40 md:w-80" />
       <div className="container-custom">
         <div className="space-y-12">
-          <div className="space-y-4 text-center">
-            <h2 className="text-3xl font-bold">Get In Touch</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              I'm currently open to new opportunities and collaborations. 
-              If you have a project in mind or just want to chat, feel free to reach out!
-            </p>
-          </div>
+          <SectionHeading
+            eyebrow="Chapter 4: Send the signal"
+            title="Get In Touch"
+            tone="light"
+            center
+            subtitle="I'm currently open to new opportunities and collaborations. If you have a project in mind or just want to chat, feel free to reach out!"
+          />
 
           <div className="grid md:grid-cols-2 gap-10">
             <div className="space-y-8">
               <div className="space-y-6">
-                <h3 className="text-xl font-semibold">Connect With Me</h3>
+                <h3 className="comic-title comic-title-light text-4xl">Connect With Me</h3>
                 <div className="flex flex-wrap gap-4">
                   {contactInfo.map((item, index) => {
                     const IconComponent = getIconComponent(item.icon);
@@ -87,7 +91,7 @@ const ContactSection = () => {
                         href={`${item.prefix}${item.value}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="p-3 bg-muted rounded-full hover:bg-accent hover:text-white transition-colors"
+                        className="comic-icon-btn !h-14 !w-14"
                         aria-label={item.type}
                       >
                         <IconComponent className="h-6 w-6" />
@@ -97,32 +101,33 @@ const ContactSection = () => {
                 </div>
               </div>
 
-              <Card>
-                <CardContent className="p-6">
-                  <p className="font-medium text-lg">Looking for a developer?</p>
+              <div className="comic-speech">
+                <div>
+                  <p className="comic-panel-title text-3xl">Looking for a developer?</p>
                   <p className="text-muted-foreground mt-2">
                     I'm currently available for freelance work and full-time positions.
                     If you need a developer who can deliver quality work on time, let's talk.
                   </p>
-                  <Button asChild className="mt-4 w-full bg-accent hover:bg-accent/90">
+                  <Button asChild className="comic-btn comic-btn-red mt-5 w-full">
                     <a href="https://drive.google.com/file/d/1Q1S7iQ05Mw2UocZxHSVbuLeIS27F9xCm/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                       Download Resume
                     </a>
                   </Button>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
 
             <div>
-              <Card>
+              <Card className="comic-panel tilt-r">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
+                  <h3 className="comic-panel-title mb-6 text-3xl">Send a Message</h3>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-medium">
+                      <label htmlFor="name" className="comic-label">
                         Name
                       </label>
                       <Input 
+                        className="comic-input"
                         id="name" 
                         placeholder="Your name" 
                         required 
@@ -131,10 +136,11 @@ const ContactSection = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-medium">
+                      <label htmlFor="email" className="comic-label">
                         Email
                       </label>
                       <Input 
+                        className="comic-input"
                         id="email" 
                         type="email" 
                         placeholder="Your email" 
@@ -144,7 +150,7 @@ const ContactSection = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="message" className="text-sm font-medium">
+                      <label htmlFor="message" className="comic-label">
                         Message
                       </label>
                       <Textarea 
@@ -153,10 +159,10 @@ const ContactSection = () => {
                         required 
                         value={formData.message}
                         onChange={handleChange}
-                        className="min-h-[120px]"
+                        className="comic-input min-h-[120px]"
                       />
                     </div>
-                    <Button type="submit" className="w-full bg-accent hover:bg-accent/90">
+                    <Button type="submit" className="comic-btn comic-btn-red w-full">
                       Send Message
                     </Button>
                   </form>

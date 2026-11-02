@@ -1,6 +1,7 @@
 
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { Burst, WebCorner } from "@/components/comic/ComicArt";
 
 const NotFound = () => {
   const location = useLocation();
@@ -13,11 +14,14 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <Link to="/" className="text-blue-500 hover:text-blue-700 underline">
+    <div className="comic-bg-cover relative isolate flex min-h-screen items-center justify-center overflow-hidden p-6">
+      <WebCorner className="absolute left-0 top-0 -z-10 w-64 text-white/50 md:w-96" />
+      <WebCorner className="absolute bottom-0 right-0 -z-10 w-64 rotate-180 text-white/50 md:w-96" />
+      <div className="flex flex-col items-center gap-6 text-center">
+        <Burst word="CRASH!" className="w-56 md:w-72" />
+        <h1 className="comic-cover-title">404</h1>
+        <p className="comic-caption text-lg">Oops! Page not found</p>
+        <Link to="/" className="comic-btn comic-btn-paper inline-flex h-10 items-center px-6">
           Return to Home
         </Link>
       </div>
