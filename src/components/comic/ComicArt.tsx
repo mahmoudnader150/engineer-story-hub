@@ -108,6 +108,34 @@ export const Burst = ({ word, className = "", fill = "hsl(var(--pow-yellow))", t
 );
 
 const SCENE_WEB = webPath(200, 200, 270, 14, 7, 8);
+const MASK_WEB = webPath(500, 530, 560, 28, 10, 4);
+const MASK_SHAPE =
+  "M500 110C720 110 830 280 830 470C830 680 680 890 500 890C320 890 170 680 170 470C170 280 280 110 500 110Z";
+
+/** A plain web mask on the panel's blue print. */
+export const WebMask = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 1000 1000" className={`block h-full w-full ${className}`} role="img" aria-label="Red comic web mask">
+    <defs>
+      <pattern id="mask-dots" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="15" cy="15" r="6" fill="hsl(232 60% 18%)" />
+      </pattern>
+      <clipPath id="mask-clip">
+        <path d={MASK_SHAPE} />
+      </clipPath>
+    </defs>
+    <rect width="1000" height="1000" fill="hsl(var(--spider-blue))" />
+    <rect width="1000" height="1000" fill="url(#mask-dots)" />
+    <path d={MASK_SHAPE} fill="hsl(var(--spider-red))" />
+    <g clipPath="url(#mask-clip)">
+      <path d={MASK_WEB} fill="none" stroke="hsl(var(--ink))" strokeWidth="5" />
+    </g>
+    <path d={MASK_SHAPE} fill="none" stroke="hsl(var(--ink))" strokeWidth="16" />
+    <g fill="#fff" stroke="hsl(var(--ink))" strokeWidth="22" strokeLinejoin="round">
+      <path d="M465 545C400 565 270 525 225 395C310 385 440 435 465 545Z" />
+      <path d="M535 545C600 565 730 525 775 395C690 385 560 435 535 545Z" />
+    </g>
+  </svg>
+);
 
 /** The cover scene: the only villain a software engineer fights, caught in a web. */
 export const CaughtBug = ({ className = "" }: { className?: string }) => (

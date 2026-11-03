@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Code, Server, Layers, Globe } from "lucide-react";
+import { Brain, Code, Server, Layers, Globe } from "lucide-react";
 import SectionHeading from "@/components/comic/SectionHeading";
 import { WebCorner, WebDivider } from "@/components/comic/ComicArt";
 
@@ -26,6 +26,24 @@ const AboutSection = () => {
       category: "Tools & Databases", 
       items: ["Git/GitHub", "MongoDB", "PostgreSQL", "SQL", "Postman", "Linux"],
       icon: <Layers className="h-8 w-8" />,
+    },
+    { 
+      category: "AI & Machine Learning", 
+      items: [
+        "AI with Claude Developer Certification",
+        "RAG",
+        "MCP",
+        "Context Windows",
+        "Prompt Engineering",
+        "Structured Output",
+        "Tool Design",
+        "Agentic Workflows",
+        "Prompt Caching",
+        "Claude Code",
+        "ML Fundamentals",
+        "Linear Algebra",
+      ],
+      icon: <Brain className="h-8 w-8" />,
     },
   ];
 
@@ -76,9 +94,14 @@ const AboutSection = () => {
           
           <div className="space-y-8">
             <SectionHeading eyebrow="Powers & abilities" title="Skills & Expertise" />
-            <div className="comic-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="comic-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
               {skills.map((skill, index) => (
-                <Card key={index} className="comic-panel">
+                <Card
+                  key={index}
+                  className={`comic-panel ${index < 3 ? "lg:col-span-2" : "lg:col-span-3"} ${
+                    index === skills.length - 1 ? "md:col-span-2" : ""
+                  }`}
+                >
                   <CardContent className="p-6">
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center gap-3">

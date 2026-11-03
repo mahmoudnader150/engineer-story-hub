@@ -9,8 +9,23 @@ import { contactInfo, getIconComponent } from "@/data/portfolio-data";
 import SectionHeading from "@/components/comic/SectionHeading";
 import { WebCorner, WebDivider } from "@/components/comic/ComicArt";
 
+const CONTACT_EMAIL = 'mahnader222@gmail.com';
+
+/** Backup delivery when EmailJS is down, e.g. when its Gmail connection expires. */
+const sendViaFormSubmit = async (fields: { name: string; email: string; message: string }) => {
+  const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ ...fields, _subject: `Portfolio message from ${fields.name}`, _captcha: 'false' }),
+  });
+  const result = await response.json();
+  // FormSubmit answers 200 with success "false" for problems like an unactivated form.
+  if (String(result.success) !== 'true') throw new Error(result.message);
+};
+
 const ContactSection = () => {
   const { toast } = useToast();
+  const [status, setStatus] = useState<'idle' | 'sending' | 'failed'>('idle');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,20 +44,26 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+    setStatus('sending');
+
     try {
       const head = `${formData.name} ${formData.email}`;
       
-      await emailjs.send(
-        'service_n3ckpnw',
-        'template_tq8b8qp',
-        {
-          head,
-          feedback: formData.message,
-          to_email: 'mahnader222@gmail.com'
-        },
-        'SZgeL5iBEktSnu_1q'
-      );
+      try {
+        await emailjs.send(
+          'service_n3ckpnw',
+          'template_tq8b8qp',
+          {
+            head,
+            feedback: formData.message,
+            to_email: CONTACT_EMAIL
+          },
+          'SZgeL5iBEktSnu_1q'
+        );
+      } catch (emailJsError) {
+        console.warn('EmailJS failed, trying FormSubmit:', emailJsError);
+        await sendViaFormSubmit(formData);
+      }
 
       toast({
         title: "Message sent!",
@@ -54,12 +75,9 @@ const ContactSection = () => {
         email: '',
         message: ''
       });
+      setStatus('idle');
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive"
-      });
+      setStatus('failed');
       console.error('Email sending error:', error);
     }
   };
@@ -162,9 +180,20 @@ const ContactSection = () => {
                         className="comic-input min-h-[120px]"
                       />
                     </div>
-                    <Button type="submit" className="comic-btn comic-btn-red w-full">
-                      Send Message
+                    <Button type="submit" disabled={status === 'sending'} className="comic-btn comic-btn-red w-full">
+                      {status === 'sending' ? 'Sending…' : 'Send Message'}
                     </Button>
+                    {status === 'failed' && (
+                      <p role="alert" className="comic-caption !block !w-full !normal-case !not-italic">
+                        Your message didn't send, but it's still here. Please try again, or{' '}
+                        <a
+                          className="underline"
+                          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Message from ${formData.name}`)}&body=${encodeURIComponent(formData.message)}`}
+                        >
+                          email it to me directly
+                        </a>.
+                      </p>
+                    )}
                   </form>
                 </CardContent>
               </Card>

@@ -22,6 +22,16 @@ export const projects = [
     featured: true
   },
   { 
+    title: "Chess Game Reviewer", 
+    description: "A chess.com-style game review for Chess.com and Lichess games that runs entirely in the browser. Stockfish analyzes every move, classifying it from Brilliant to Blunder, with accuracy scores, an evaluation bar and a coach explaining the best move.", 
+    icon: "Code",
+    category: "Web Application",
+    github: "https://github.com/mahmoudnader150/chess_game_reviewer",
+    image: "/placeholder.svg",
+    liveLink: "https://chessgamereviewer.vercel.app",
+    featured: true
+  },
+  { 
     title: "Connect 4 AI agent", 
     description: "This project implements an AI for the classic Connect 4 game using the Minimax algorithm with Alpha-Beta Pruning to optimize its decision-making process.", 
     icon: "Code",

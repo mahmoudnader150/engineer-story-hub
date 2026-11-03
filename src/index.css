@@ -479,7 +479,8 @@
   transition: rotate 120ms ease-out, background-color 120ms ease-out, color 120ms ease-out;
 }
 
-.comic-nav-link:hover {
+.comic-nav-link:hover,
+.comic-nav-link.is-active {
   color: hsl(var(--ink));
   background: hsl(var(--pow-yellow));
   rotate: -3deg;

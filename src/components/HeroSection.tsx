@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import { Burst, CaughtBug, WebCorner } from "@/components/comic/ComicArt";
+import { Burst, CaughtBug, WebCorner, WebMask } from "@/components/comic/ComicArt";
 
 const HeroSection = () => {
   const handleScroll = (sectionId: string) => {
@@ -49,16 +49,18 @@ const HeroSection = () => {
         </div>
 
         <div className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
-          <div className="comic-panel tilt-r relative aspect-square" aria-hidden="true">
-            <CaughtBug />
+          <div className="comic-panel tilt-r relative aspect-square">
+            <WebMask />
             <p className="comic-caption absolute -left-3 -top-4 max-w-[75%]">
-              Meanwhile, in production…
-            </p>
-            <p className="comic-caption absolute -bottom-4 -right-3 max-w-[80%]">
-              Another bug, caught in the web!
+              Your friendly neighborhood engineer
             </p>
           </div>
-          <Burst word="THWIP!" className="comic-wobble absolute -right-3 top-8 w-32 md:w-40" fill="#fff" />
+          <Burst word="THWIP!" className="comic-wobble absolute -right-3 top-8 w-28 md:w-36" fill="#fff" />
+          {/* The villain of the piece: decorative, so hidden from screen readers */}
+          <div className="absolute -bottom-6 -right-3 w-32 md:w-40" aria-hidden="true">
+            <div className="comic-panel tilt-l aspect-square"><CaughtBug /></div>
+            <p className="comic-caption absolute -bottom-3 right-1 whitespace-nowrap !text-xs">Bug caught!</p>
+          </div>
         </div>
       </div>
 

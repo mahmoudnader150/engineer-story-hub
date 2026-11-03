@@ -5,10 +5,13 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import NavbarLink from "./NavbarLinks";
+import SoundToggle from "./SoundToggle";
+import MusicToggle from "./MusicToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const { resolvedTheme, setTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,6 +28,28 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Highlights the section crossing a line 40% down the viewport.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-40% 0px -60% 0px" }
+    );
+    document.querySelectorAll("#top, #about, #projects, #experience, #contact").forEach((section) => observer.observe(section));
+    return () => {
+      observer.disconnect();
+      setActiveSection(null);
+    };
+  }, [location.pathname]);
+
+  const handleLogoClick = () => {
+    setIsOpen(false);
+    window.scrollTo({ top: 0 });
+  };
 
   const handleNavigation = (sectionId: string) => {
     setIsOpen(false);
@@ -70,6 +95,7 @@ const Navbar = () => {
           <Link 
             to="/" 
             className="comic-logo"
+            onClick={handleLogoClick}
           >
             MAHMOUD<span>NADER</span>
           </Link>
@@ -82,7 +108,8 @@ const Navbar = () => {
                 <li key={link.href}>
                   <button
                     onClick={() => handleNavigation(link.href)}
-                    className="comic-nav-link"
+                    className={`comic-nav-link ${activeSection === link.href ? "is-active" : ""}`}
+                    aria-current={activeSection === link.href ? "true" : undefined}
                   >
                     {link.label}
                   </button>
@@ -97,6 +124,9 @@ const Navbar = () => {
               ))}
             </ul>
             
+            <div className="flex items-center gap-3">
+            <MusicToggle />
+            <SoundToggle />
             {/* Theme Toggle */}
             <Button
               size="icon"
@@ -106,10 +136,13 @@ const Navbar = () => {
             >
               {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </Button>
+            </div>
           </nav>
           
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 md:hidden">
+            <MusicToggle />
+            <SoundToggle />
             <Button
               size="icon"
               onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
@@ -141,7 +174,8 @@ const Navbar = () => {
                 <li key={link.href}>
                   <button
                     onClick={() => handleNavigation(link.href)}
-                    className="comic-nav-link block w-full text-left"
+                    className={`comic-nav-link block w-full text-left ${activeSection === link.href ? "is-active" : ""}`}
+                    aria-current={activeSection === link.href ? "true" : undefined}
                   >
                     {link.label}
                   </button>
